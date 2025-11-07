@@ -10,10 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php-version: ['8.1', '8.2', '8.3']
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -21,7 +17,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-version }}
+        php-version: '8.4'
         extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, mysql, pdo_mysql
         coverage: xdebug
 
@@ -33,9 +29,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-8.4-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php-version }}-
+          ${{ runner.os }}-php-8.4-
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
@@ -77,7 +73,7 @@ jobs:
       uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: coverage-report-php-${{ matrix.php-version }}
+        name: coverage-report-php-8.4
         path: |
           coverage.xml
           coverage.txt
