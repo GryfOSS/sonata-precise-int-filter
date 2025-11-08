@@ -18,6 +18,16 @@ composer require gryfoss/sonata-precise-int-filter
 
 Use the `PreciseIntFilter` in your Sonata Admin configuration:
 
+First register it in your services.yaml:
+
+```yaml
+  GryfOSS\SonataAdmin\Filter\PreciseIntFilter:
+    tags:
+      - { name: sonata.admin.filter.type, alias: gryfoss_filter_precise_int }
+```
+
+(You may use a different alias.)
+
 ```php
 use GryfOSS\SonataAdmin\Filter\PreciseIntFilter;
 
